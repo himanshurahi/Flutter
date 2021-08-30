@@ -21,7 +21,20 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  var questions = ['this is q 1', 'this is q2'];
+  var questions = [
+    {
+      'questionText': 'Your City',
+      'answers': ['Sonipat', 'New Delhi']
+    },
+    {
+      'questionText': 'Marks in 10th class',
+      'answers': ['567', '456']
+    },
+    {
+      'questionText': 'Fav Animal',
+      'answers': ['Dog', 'Cat']
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +42,10 @@ class MyAppState extends State<MyApp> {
         home: Scaffold(
       appBar: AppBar(title: Text("App Bar")),
       body: Column(
-        children: <Widget>[
-          Question(questions[qindex]),
-          Answer(answer),
-          Answer(answer),
-          Answer(answer),
+        children: [
+          Question(questions[qindex]['questionText']),
+          ...(questions[qindex]['answers'] as List)
+              .map((ans) => Answer(answer, ans))
         ],
       ),
     ));
