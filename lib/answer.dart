@@ -12,7 +12,7 @@ class Answer extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: Colors.blueAccent),
         child: Text(AnswerText),
-        onPressed: AnswerPressed,
+        onPressed: (AnswerPressed),
       ),
     );
   }

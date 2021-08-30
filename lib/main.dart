@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './question.dart';
 import './answer.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,40 +15,59 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  var qindex = 0;
+  var questions = [
+    {
+      'questionText': 'Your City',
+      'answers': ['Sonipat', 'New Delhi'],
+      'score': 10
+    },
+    {
+      'questionText': 'Marks in 10th class',
+      'answers': ['567', '456'],
+      'score': 15
+    },
+    {
+      'questionText': 'Fav Animal',
+      'answers': ['Dog', 'Cat'],
+      'score': 25
+    },
+  ];
+  int qindex = 0;
+  int totalScore = 0;
   void answer() {
+    if (qindex <= questions.length - 1) {
+      totalScore += questions[qindex]['score'] as int;
+    }
+
     setState(() {
       qindex = qindex + 1;
     });
   }
-
-  var questions = [
-    {
-      'questionText': 'Your City',
-      'answers': ['Sonipat', 'New Delhi']
-    },
-    {
-      'questionText': 'Marks in 10th class',
-      'answers': ['567', '456']
-    },
-    {
-      'questionText': 'Fav Animal',
-      'answers': ['Dog', 'Cat']
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(title: Text("App Bar")),
-      body: Column(
-        children: [
-          Question(questions[qindex]['questionText']),
-          ...(questions[qindex]['answers'] as List)
-              .map((ans) => Answer(answer, ans))
-        ],
-      ),
+      body: qindex <= questions.length - 1
+          ? Column(
+              children: [
+                Text(totalScore.toString()),
+                Question(questions[qindex]['questionText']),
+                ...(questions[qindex]['answers'] as List)
+                    .map((ans) => Answer(answer, ans))
+              ],
+            )
+          : Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'data',
+                  ),
+                ],
+              ),
+            ),
     ));
   }
 }
