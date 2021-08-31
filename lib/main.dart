@@ -34,11 +34,18 @@ class MyAppState extends State<MyApp> {
   ];
   int qindex = 0;
   int totalScore = 0;
+
+  void _reset() {
+    setState(() {
+      qindex = 0;
+      totalScore = 0;
+    });
+  }
+
   void answer() {
     if (qindex <= questions.length - 1) {
       totalScore += questions[qindex]['score'] as int;
     }
-
     setState(() {
       qindex = qindex + 1;
     });
@@ -63,8 +70,10 @@ class MyAppState extends State<MyApp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'data',
+                    'Final Score: $totalScore',
+                    style: TextStyle(fontSize: 36),
                   ),
+                  ElevatedButton(onPressed: (_reset), child: Text('Reset')),
                 ],
               ),
             ),
